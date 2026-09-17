@@ -12,6 +12,11 @@ import type {
 
 const TOKEN_KEY = 'smartpark.token';
 
+// Base URL for the backend. Empty in dev (Vite proxies /api and /ws) and in the
+// Docker/nginx setup; set VITE_API_BASE to the backend origin for split cloud
+// deploys, e.g. https://smartpark-api.onrender.com
+export const API_BASE = (import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '');
+
 export function getToken(): string | null {
   try {
     return localStorage.getItem(TOKEN_KEY);
@@ -35,7 +40,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getToken();
   if (token) headers.set('Authorization', `Bearer ${token}`);
 
-  const res = await fetch(path, { ...options, headers });
+  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
   if (!res.ok) {
     let message = `Request failed (${res.status})`;
     try {

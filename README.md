@@ -146,6 +146,16 @@ SPRING_PROFILES_ACTIVE=prod MONGODB_URI="mongodb+srv://user:pass@cluster/smartpa
 
 ---
 
+## Deploy to the cloud (free)
+
+Ship SmartPark to a public URL on **100% free tiers** — MongoDB Atlas (M0) + Render (Docker backend and static frontend). The repo includes a [`render.yaml`](render.yaml) Blueprint for a two-service deploy.
+
+**→ Full walkthrough: [DEPLOY.md](DEPLOY.md)**
+
+The frontend reads the backend origin from a `VITE_API_BASE` build variable (see [`frontend/.env.example`](frontend/.env.example)), so the static site and API can live on separate domains.
+
+---
+
 ## Configuration
 
 All settings have sensible defaults and can be overridden by environment variables:

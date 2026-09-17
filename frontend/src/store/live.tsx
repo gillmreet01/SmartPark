@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { api } from '../api/client';
+import { api, API_BASE } from '../api/client';
 import type { DashboardStats, ParkingSlot, SensorEvent } from '../api/types';
 
 interface LiveContextValue {
@@ -41,7 +41,7 @@ export function LiveDataProvider({ children }: { children: ReactNode }) {
     refresh().catch(() => undefined);
 
     const client = new Client({
-      webSocketFactory: () => new SockJS('/ws'),
+      webSocketFactory: () => new SockJS(`${API_BASE}/ws`),
       reconnectDelay: 3000,
       onConnect: () => {
         setConnected(true);
