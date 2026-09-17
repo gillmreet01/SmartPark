@@ -33,6 +33,30 @@ It ships as two independent modules:
 
 ---
 
+## 📸 Screenshots
+
+### Operations Dashboard
+Live KPIs, an occupancy ring, per-floor utilisation, and a real-time sensor feed — all updating over WebSocket as vehicles come and go.
+
+![SmartPark dashboard](docs/screenshots/01-dashboard.png)
+
+### Live Parking Map
+Every bay is rendered from its own sensor and colour-coded by status; click any cell to inspect or manage it. Switch between floors at the top right.
+
+![SmartPark live parking map](docs/screenshots/02-live-map.png)
+
+### Analytics
+Hourly traffic, 7-day revenue, vehicle trends, and the current occupancy mix by vehicle type.
+
+![SmartPark analytics](docs/screenshots/03-analytics.png)
+
+### Gate & Sessions
+Automated entry/exit with duration-based billing and a live view of active sessions.
+
+![SmartPark gate and sessions](docs/screenshots/04-sessions.png)
+
+---
+
 ## Features
 
 - 🗺️ **Live floor map** — every bay rendered on a grid, colour-coded by status, updating in real time as sensors fire.
