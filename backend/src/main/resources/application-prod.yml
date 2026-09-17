@@ -1,0 +1,14 @@
+# PROD profile: connect to a real MongoDB (Atlas free tier, local, or Docker).
+# Provide the connection string via the MONGODB_URI environment variable.
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/smartpark}
+  # Disable the embedded Mongo autoconfiguration in production.
+  autoconfigure:
+    exclude:
+      - de.flapdoodle.embed.mongo.spring.autoconfigure.EmbeddedMongoAutoConfiguration
+
+smartpark:
+  simulator:
+    enabled: ${SMARTPARK_SIM_ENABLED:true}

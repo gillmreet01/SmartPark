@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: smartpark-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
+server:
+  port: ${SERVER_PORT:8080}
+
+# SmartPark domain configuration
+smartpark:
+  jwt:
+    # Base64-safe secret; override in production via SMARTPARK_JWT_SECRET
+    secret: ${SMARTPARK_JWT_SECRET:c21hcnRwYXJrLXN1cGVyLXNlY3JldC1rZXktY2hhbmdlLW1lLTEyMzQ1Njc4}
+    expiration-minutes: ${SMARTPARK_JWT_EXP_MINUTES:720}
+  cors:
+    allowed-origins: ${SMARTPARK_CORS_ORIGINS:http://localhost:5173,http://localhost:4173}
+  simulator:
+    # IoT device simulator: emits sensor events on a fixed cadence.
+    enabled: ${SMARTPARK_SIM_ENABLED:true}
+    interval-ms: ${SMARTPARK_SIM_INTERVAL_MS:3500}
+  billing:
+    currency: ${SMARTPARK_CURRENCY:INR}
+    rate-per-hour: ${SMARTPARK_RATE_PER_HOUR:40.0}
+    ev-surcharge-per-hour: ${SMARTPARK_EV_SURCHARGE:15.0}
+  seed:
+    enabled: ${SMARTPARK_SEED_ENABLED:true}
+    admin-username: ${SMARTPARK_ADMIN_USER:admin}
+    admin-password: ${SMARTPARK_ADMIN_PASS:admin123}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized
+
+logging:
+  level:
+    org.mongodb.driver: warn
+    de.flapdoodle: warn

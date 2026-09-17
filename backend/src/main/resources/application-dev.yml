@@ -1,0 +1,18 @@
+# DEV profile: zero-setup embedded MongoDB (Flapdoodle).
+# A mongod binary is downloaded automatically on first run and started in-process.
+# No local MongoDB, Docker, or Atlas account required.
+spring:
+  data:
+    mongodb:
+      database: smartpark
+      # host/port are auto-provided by the embedded Mongo autoconfiguration.
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 6.0.8
+
+smartpark:
+  simulator:
+    enabled: true

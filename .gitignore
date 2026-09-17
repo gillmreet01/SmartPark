@@ -1,0 +1,11 @@
+# Aggregated ignores (each module also has its own .gitignore)
+**/target/
+**/node_modules/
+**/dist/
+*.log
+.idea/
+.vscode/
+.DS_Store
+.env
+.env.*
+!.env.example

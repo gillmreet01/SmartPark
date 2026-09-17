@@ -1,0 +1,36 @@
+# One-command full stack: MongoDB + Spring Boot API + React (nginx).
+# Usage:  docker compose up --build   then open http://localhost:8088
+services:
+  mongo:
+    image: mongo:7
+    container_name: smartpark-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: smartpark-backend
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      MONGODB_URI: mongodb://mongo:27017/smartpark
+      SMARTPARK_CORS_ORIGINS: http://localhost:8088
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    container_name: smartpark-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8088:80"
+
+volumes:
+  mongo-data:
