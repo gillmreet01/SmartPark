@@ -9,7 +9,9 @@ spring:
       write-dates-as-timestamps: false
 
 server:
-  port: ${SERVER_PORT:8080}
+  # Bind to the platform-provided PORT (Render, Heroku, etc.); fall back to
+  # SERVER_PORT, then 8080 for local dev.
+  port: ${PORT:${SERVER_PORT:8080}}
 
 # SmartPark domain configuration
 smartpark:
