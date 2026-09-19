@@ -12,3 +12,12 @@ spring:
 smartpark:
   simulator:
     enabled: ${SMARTPARK_SIM_ENABLED:true}
+
+# The platform health check (Render's /actuator/health) should report whether
+# the web server is up, not gate the whole deploy on a live MongoDB ping — a
+# brief DB blip must not mark a healthy instance as failed. Mongo connectivity
+# is still used by the app and surfaced under /actuator/health/mongo if needed.
+management:
+  health:
+    mongo:
+      enabled: false

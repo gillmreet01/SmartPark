@@ -64,13 +64,24 @@ public class DataSeeder implements ApplicationRunner {
         if (!props.getSeed().isEnabled()) {
             return;
         }
-        seedAdmin();
-        if (slots.count() == 0) {
-            seedSlots();
-            seedHistory();
-            seedLiveOccupancy();
-            log.info("SmartPark demo data seeded: {} slots, {} sessions.",
-                    slots.count(), sessions.count());
+        // Never let a slow/unavailable database at startup abort the application.
+        // On a cold cloud instance the first connection to MongoDB Atlas can lag
+        // past the driver's server-selection timeout; if that happened here the
+        // whole app would fail to start. Instead we log and carry on — the app
+        // serves, its health check stays green, and seeding retries on the next
+        // restart once the database is reachable.
+        try {
+            seedAdmin();
+            if (slots.count() == 0) {
+                seedSlots();
+                seedHistory();
+                seedLiveOccupancy();
+                log.info("SmartPark demo data seeded: {} slots, {} sessions.",
+                        slots.count(), sessions.count());
+            }
+        } catch (Exception ex) {
+            log.warn("Skipping data seed — database not ready yet ({}). "
+                    + "It will retry on the next restart.", ex.getMessage());
         }
     }
 
